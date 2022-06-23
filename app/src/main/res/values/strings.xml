@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">AppCinemaList</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+   <string name="api_key">WLZea1BzGd1A7R9duap3nIJsAfi4JfSo</string>
+
+
+
+
 </resources>

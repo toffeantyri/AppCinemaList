@@ -2,6 +2,8 @@ package ru.testwork.appcinemalist
 
 import android.app.Application
 
+lateinit var APP_CONTEXT : Application
+
 class App : Application() {
 
     companion object {
@@ -10,6 +12,8 @@ class App : Application() {
 
 
     override fun onCreate() {
+        log(this::class.java.simpleName + ": onCreate")
+        APP_CONTEXT = this
         super.onCreate()
 
     }
