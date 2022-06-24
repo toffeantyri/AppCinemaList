@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist.screens
+package ru.testwork.appcinemalist.screens.filmslist
 
 import android.os.Bundle
 import android.view.LayoutInflater

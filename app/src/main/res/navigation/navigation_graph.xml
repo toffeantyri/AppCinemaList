@@ -3,6 +3,6 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/navigation_graph" app:startDestination="@id/filmsListFragment">
 
-    <fragment android:id="@+id/filmsListFragment" android:name="ru.testwork.appcinemalist.screens.FilmsListFragment"
+    <fragment android:id="@+id/filmsListFragment" android:name="ru.testwork.appcinemalist.screens.filmslist.FilmsListFragment"
               android:label="FilmsListFragment"/>
 </navigation>
