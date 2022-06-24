@@ -1,8 +1,10 @@
 package ru.testwork.appcinemalist.repository
 
-abstract class BaseRepository<T>()  {
+import androidx.lifecycle.MutableLiveData
 
+abstract class BaseRepository<T>() {
 
+    val dataEmitter: MutableLiveData<T> by lazy { MutableLiveData() }
 
 
 }
