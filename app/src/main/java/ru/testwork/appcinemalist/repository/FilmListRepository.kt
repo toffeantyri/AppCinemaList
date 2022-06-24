@@ -2,14 +2,14 @@ package ru.testwork.appcinemalist.repository
 
 import kotlinx.coroutines.*
 import ru.testwork.appcinemalist.busines.ApiProvider
-import ru.testwork.appcinemalist.busines.model.NYTimesReviewModel
+import ru.testwork.appcinemalist.busines.model.Result
 import ru.testwork.appcinemalist.log
 
-class FilmListRepository(api : ApiProvider) : BaseRepository<NYTimesReviewModel>() {
+class FilmListRepository(api: ApiProvider) : BaseRepository<List<Result>>() {
 
-    val apiProvider = api
+    private val apiProvider = api // todo DI
 
-    fun getData(page : Int, onSuccess : () -> Unit, onFail: () -> Unit){
+    fun getData(page: Int, onSuccess: () -> Unit, onFail: () -> Unit) {
 
         //todo check internet if no -> fail
 
@@ -21,9 +21,22 @@ class FilmListRepository(api : ApiProvider) : BaseRepository<NYTimesReviewModel>
         }
 
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-
-
-
+            val response = async {
+                apiProvider.provideNYTimesApi().getReviewAll()
+            }.await()
+            log("REPO response Successful : ${response.isSuccessful}")
+            if (response.isSuccessful && response.body() != null) {
+                val model = response.body()!!
+                val list = model.results ?: listOf()
+                withContext(Dispatchers.Main) {
+                    dataEmitter.value = list
+                    onSuccess()
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    onFail()
+                }
+            }
         }
     }
 }
