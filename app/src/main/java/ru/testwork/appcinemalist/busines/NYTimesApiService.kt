@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.testwork.appcinemalist.APP_CONTEXT
 import ru.testwork.appcinemalist.R
+import ru.testwork.appcinemalist.busines.model.NYTimesReviewModel
 
 
 interface NYTimesApiService {
@@ -16,6 +17,6 @@ interface NYTimesApiService {
     @GET("/svc/movies/v2/reviews/all.json?")
     fun getReviewAll(
         @Query("api-key") key : String = APP_CONTEXT.getString(R.string.api_key),
-    ) : Response<String> // todo add type model
+    ) : Response<NYTimesReviewModel>
 
 }
