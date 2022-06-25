@@ -1,15 +1,22 @@
 package ru.testwork.appcinemalist.repository
 
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import ru.testwork.appcinemalist.busines.api.ApiProvider
-import ru.testwork.appcinemalist.busines.model.Result
+import ru.testwork.appcinemalist.busines.model.jsonmodels.Result
 import ru.testwork.appcinemalist.log
+import javax.inject.Inject
 
-class FilmListRepository(api: ApiProvider) : BaseRepository<List<Result>>() {
+class FilmListRepository @Inject constructor(private val api: ApiProvider) :
+    BaseRepository<List<Result>>() {
 
-    private val apiProvider = api // todo DI
 
-    fun getData(page: Int, onSuccess: () -> Unit, onFail: () -> Unit) {
+    fun getData(
+        page: Int,
+        receiver: MutableLiveData<Any>,
+        onSuccess: () -> Unit,
+        onFail: () -> Unit
+    ) {
 
         //todo check internet if no -> fail
 
@@ -22,7 +29,7 @@ class FilmListRepository(api: ApiProvider) : BaseRepository<List<Result>>() {
 
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             val response = async {
-                apiProvider.provideNYTimesApi().getReviewAll()
+                api.provideNYTimesApi().getReviewAll(offset = page.toString())
             }.await()
             log("REPO response Successful : ${response.isSuccessful}")
             if (response.isSuccessful && response.body() != null) {

@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist.busines.model
+package ru.testwork.appcinemalist.busines.model.jsonmodels
 
 data class Link(
     val suggested_link_text: String,

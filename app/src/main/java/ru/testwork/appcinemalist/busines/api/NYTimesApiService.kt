@@ -1,12 +1,11 @@
 package ru.testwork.appcinemalist.busines.api
 
-import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.testwork.appcinemalist.APP_CONTEXT
 import ru.testwork.appcinemalist.R
-import ru.testwork.appcinemalist.busines.model.NYTimesReviewModel
+import ru.testwork.appcinemalist.busines.model.jsonmodels.NYTimesReviewModel
 
 
 interface NYTimesApiService {

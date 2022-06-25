@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist.busines.model
+package ru.testwork.appcinemalist.busines.model.jsonmodels
 
 data class Multimedia(
     val height: Int,

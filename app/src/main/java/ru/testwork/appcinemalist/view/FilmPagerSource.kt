@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import ru.testwork.appcinemalist.busines.api.NYTimesApiService
-import ru.testwork.appcinemalist.busines.model.NYTimesReviewModel
-import ru.testwork.appcinemalist.busines.model.Result
+import ru.testwork.appcinemalist.busines.model.jsonmodels.NYTimesReviewModel
+import ru.testwork.appcinemalist.busines.model.jsonmodels.Result
 
 class FilmPagerSource(
     private val service: NYTimesApiService,
