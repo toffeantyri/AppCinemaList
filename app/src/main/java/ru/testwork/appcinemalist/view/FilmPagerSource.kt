@@ -3,7 +3,7 @@ package ru.testwork.appcinemalist.view
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
-import ru.testwork.appcinemalist.busines.NYTimesApiService
+import ru.testwork.appcinemalist.busines.api.NYTimesApiService
 import ru.testwork.appcinemalist.busines.model.NYTimesReviewModel
 import ru.testwork.appcinemalist.busines.model.Result
 

@@ -1,7 +1,7 @@
 package ru.testwork.appcinemalist.repository
 
 import kotlinx.coroutines.*
-import ru.testwork.appcinemalist.busines.ApiProvider
+import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.Result
 import ru.testwork.appcinemalist.log
 
