@@ -1,8 +1,6 @@
 package ru.testwork.appcinemalist.viewmodels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -23,15 +21,24 @@ class MainActivityViewModel @Inject constructor(private val repository: FilmList
 
     val isErrorEnabled: Flow<Boolean> = repository.isErrorEnabled()
 
-    val filmsFlow: Flow<PagingData<FilmModelItem>>
+    private var _filmsFlow: Flow<PagingData<FilmModelItem>>
+
+    val filmFlow: Flow<PagingData<FilmModelItem>>
+        get() = _filmsFlow
+
 
     init {
-        filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
+        _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
         // cacheIn кешируем если подписка будет происходить несколько раз
     }
 
-    fun setEnableErrors(value : Boolean){
+    fun setEnableErrors(value: Boolean) {
         repository.setErrorEnabled(value)
+    }
+
+    fun refresh() {
+        //todo ??? refresh
+        _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
     }
 
 

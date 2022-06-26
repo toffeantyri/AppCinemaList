@@ -19,7 +19,7 @@ class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
     LoadStateAdapter<DefaultLoadStateAdapter.ViewHolder>() {
 
 
-    inner class ViewHolder(
+    class ViewHolder(
         private val view: View,
         private val swipeRefreshLayout: SwipeRefreshLayout?,
         private val tryAgainAction: () -> Unit
@@ -59,7 +59,6 @@ class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.network_state_item, parent, false)
-        val swipeRefreshLayout: SwipeRefreshLayout
         return ViewHolder(view, null, tryAgainAction = tryAgainAction)
     }
 
