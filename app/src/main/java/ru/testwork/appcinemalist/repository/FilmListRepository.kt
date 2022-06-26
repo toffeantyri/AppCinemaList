@@ -8,18 +8,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
-import ru.testwork.appcinemalist.busines.model.jsonmodels.Result
 import ru.testwork.appcinemalist.log
 import ru.testwork.appcinemalist.toListFilmModelItem
-import ru.testwork.appcinemalist.view.FilmPageLoader
-import ru.testwork.appcinemalist.view.FilmPagingSource
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
 const val PAGE_SIZE = 20
 
-class FilmListRepository @Inject constructor(private val api: ApiProvider) :
-    BaseRepository<List<FilmModelItem>>(), FilmsRepository {
+class FilmListRepository @Inject constructor(private val api: ApiProvider) : FilmsRepository {
 
 
     private val enableErrorFlow = MutableStateFlow(false)

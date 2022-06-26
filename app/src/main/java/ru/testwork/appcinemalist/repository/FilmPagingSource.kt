@@ -1,13 +1,8 @@
-package ru.testwork.appcinemalist.view
+package ru.testwork.appcinemalist.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import retrofit2.HttpException
-import ru.testwork.appcinemalist.busines.api.NYTimesApiService
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
-import ru.testwork.appcinemalist.busines.model.jsonmodels.NYTimesReviewModel
-import ru.testwork.appcinemalist.busines.model.jsonmodels.Result
-import ru.testwork.appcinemalist.repository.BaseRepository
 import java.lang.Exception
 
 typealias FilmPageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<FilmModelItem>
