@@ -52,11 +52,17 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
 
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
     implementation "androidx.activity:activity-ktx:1.4.0"
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 
     //retrofit
@@ -69,10 +75,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_ver"
     implementation "androidx.paging:paging-runtime-ktx:$paging_ver"
 
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
 
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.2.3'
@@ -84,6 +87,7 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.35'
     kapt "com.google.dagger:hilt-android-compiler:2.35"
 
-
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 
 }
