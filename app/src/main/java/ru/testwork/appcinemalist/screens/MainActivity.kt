@@ -2,12 +2,10 @@ package ru.testwork.appcinemalist.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isInvisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -17,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
-import kotlinx.android.synthetic.main.network_state_item.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -27,7 +24,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.appComponent
-import ru.testwork.appcinemalist.di.DaggerAppComponent
 import ru.testwork.appcinemalist.log
 import ru.testwork.appcinemalist.simpleScan
 import ru.testwork.appcinemalist.view.DefaultLoadStateAdapter
@@ -39,10 +35,9 @@ import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
+    lateinit var loadStateHolder : DefaultLoadStateAdapter.ViewHolder
 
     private val viewModel: MainActivityViewModel by viewModels()
-
-    lateinit var loadStateHolder: DefaultLoadStateAdapter.ViewHolder
 
     @BindView(R.id.film_list_recycler)
     lateinit var filmRecycler: RecyclerView
@@ -50,16 +45,20 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.swipe_refresh)
     lateinit var swipeLayout: SwipeRefreshLayout
 
-    @BindView(R.id.progress)
-    lateinit var progressBar: ProgressBar
+    @BindView(R.id.mainConstarin)
+    lateinit var mainLayout: ConstraintLayout
 
-    @BindView(R.id.tv_error)
-    lateinit var tvError: TextView
+    @BindView(R.id.loadStateView)
+    lateinit var loadStateView : View
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        ButterKnife.bind(this@MainActivity)
+
+
+
         appComponent().inject(this)
         log("MainActivity onCreate")
 
@@ -80,19 +79,17 @@ class MainActivity : AppCompatActivity() {
         filmRecycler.layoutManager = LinearLayoutManager(this)
         filmRecycler.adapter = adapterWithLoadState
         (filmRecycler.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false //todo
-
-        //todo view?
-
-//        val netStateItem: View =
-//            LayoutInflater.from(filmRecycler.context).inflate(R.layout.network_state_item, filmRecycler, false)
-//        loadStateHolder = DefaultLoadStateAdapter.ViewHolder(netStateItem, swipeLayout, tryAgainAction)
+        loadStateHolder = DefaultLoadStateAdapter.ViewHolder(
+            loadStateView,
+            swipeLayout,
+            tryAgainAction
+        )
 
         observeFilms(adapter)
         observeLoadState(adapter)
-
         handleScrollingToTopWhenSearching(adapter)
         handleListVisibility(adapter)
-        log("MainActivity : SetupFilmList")
+
     }
 
 
@@ -111,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             adapter.loadStateFlow.debounce(500).collectLatest { state ->
                 // main indicator in the center of the screen
                 loadStateHolder.bind(state.refresh)
+
             }
         }
     }
