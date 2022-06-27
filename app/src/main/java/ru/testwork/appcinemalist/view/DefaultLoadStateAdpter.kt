@@ -12,6 +12,7 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
+import butterknife.ButterKnife
 import ru.testwork.appcinemalist.R
 
 
@@ -24,9 +25,19 @@ class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
         private val swipeRefreshLayout: SwipeRefreshLayout?,
         private val tryAgainAction: () -> Unit
     ) : RecyclerView.ViewHolder(view) {
-        var errorMessage: TextView = view.findViewById(R.id.error_msg_item)
-        var retryButton: Button = view.findViewById(R.id.retry_btn)
-        var progressBarState: ProgressBar = view.findViewById(R.id.progress_bar_item)
+
+        @BindView(R.id.error_msg_item)
+        lateinit var errorMessage: TextView
+
+        @BindView(R.id.retry_btn)
+        lateinit var retryButton: Button
+
+        @BindView(R.id.progress_bar_item)
+        lateinit var progressBarState: ProgressBar
+
+        init {
+            ButterKnife.bind(this, itemView)
+        }
 
 
         fun bind(loadState: LoadState) {

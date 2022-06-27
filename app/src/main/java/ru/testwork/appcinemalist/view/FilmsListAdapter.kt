@@ -9,6 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
+import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
@@ -25,6 +26,10 @@ class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmH
 
         @BindView(R.id.iv_image_film)
         lateinit var image: ImageView
+
+        init {
+            ButterKnife.bind(this, itemView)
+        }
 
         fun bind(filmByPos: FilmModelItem) {
             title.text = filmByPos.title

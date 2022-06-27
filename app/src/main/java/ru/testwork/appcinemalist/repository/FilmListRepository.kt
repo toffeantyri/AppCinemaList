@@ -15,18 +15,10 @@ import javax.inject.Inject
 
 const val PAGE_SIZE = 20
 
-class FilmListRepository @Inject constructor(private val api: ApiProvider) : FilmsRepository {
+class FilmListRepository @Inject constructor(private val api: ApiProvider) {
 
 
-    private val enableErrorFlow = MutableStateFlow(false)
-
-    override fun isErrorEnabled(): Flow<Boolean> = enableErrorFlow
-
-    override fun setErrorEnabled(value: Boolean) {
-        enableErrorFlow.value = value
-    }
-
-    override fun getPagedFilms(
+   fun getPagedFilms(
     ): Flow<PagingData<FilmModelItem>> {
         val loader: FilmPageLoader = { pageIndex: Int, pageSize: Int ->
             getData(pageIndex)
@@ -47,7 +39,6 @@ class FilmListRepository @Inject constructor(private val api: ApiProvider) : Fil
         pageIndex: Int
     ): List<FilmModelItem> = withContext(Dispatchers.IO) {
 
-        if (enableErrorFlow.value) throw IllegalStateException("Error!")
         val offset = (pageIndex * PAGE_SIZE).toString()
 
         val response = async {

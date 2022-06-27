@@ -21,7 +21,7 @@ interface NYTimesApiService {
         get() = "0"
 
     @GET("/svc/movies/v2/reviews/all.json?")
-    fun getReviewAll(
+    suspend fun getReviewAll(
         @Query("offset") offset: String = startPage,
         @Query("api-key") key: String = APP_CONTEXT.getString(R.string.api_key)
     ): Response<NYTimesReviewModel>

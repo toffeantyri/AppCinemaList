@@ -21,8 +21,12 @@ class MainActivityViewModel constructor(private val repository: FilmListReposito
 
     private var _filmsFlow: Flow<PagingData<FilmModelItem>>
 
+
     val filmFlow: Flow<PagingData<FilmModelItem>>
-        get() = _filmsFlow
+        get() {
+            log("VM : FilmFlow anybody get  $_filmsFlow")
+            return _filmsFlow
+        }
 
 
     init {

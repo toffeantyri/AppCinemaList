@@ -57,15 +57,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this@MainActivity)
 
-
-
         appComponent().inject(this)
-        log("MainActivity onCreate")
+
 
 
         setupFilmsList()
         setupSwipeToRefresh()
-
+        log("MainActivity onCreate")
     }
 
 
@@ -96,6 +94,9 @@ class MainActivity : AppCompatActivity() {
     private fun observeFilms(adapter: FilmsListAdapter) {
         lifecycleScope.launch {
             viewModel.filmFlow.collectLatest { pagingData ->
+
+                log("mainActivity : collectLatest $pagingData")
+
                 adapter.submitData(pagingData)
             }
         }
@@ -107,6 +108,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(500).collectLatest { state ->
                 // main indicator in the center of the screen
+                log("mainActivity : new loadState : $state")
                 loadStateHolder.bind(state.refresh)
 
             }
@@ -142,7 +144,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getRefreshLoadStateFlow(adapter: FilmsListAdapter): Flow<LoadState> {
-        return adapter.loadStateFlow.map { it.refresh }
+        return adapter.loadStateFlow.map {
+            it.refresh }
     }
 
 
