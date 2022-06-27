@@ -2,6 +2,8 @@ package ru.testwork.appcinemalist.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -14,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
-import dagger.hilt.android.AndroidEntryPoint
+import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.network_state_item.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -24,13 +26,15 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.testwork.appcinemalist.R
+import ru.testwork.appcinemalist.appComponent
+import ru.testwork.appcinemalist.di.DaggerAppComponent
+import ru.testwork.appcinemalist.log
 import ru.testwork.appcinemalist.simpleScan
 import ru.testwork.appcinemalist.view.DefaultLoadStateAdapter
 import ru.testwork.appcinemalist.view.FilmsListAdapter
 import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
 
 @SuppressLint("NonConstantResourceId")
-@AndroidEntryPoint
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -52,18 +56,21 @@ class MainActivity : AppCompatActivity() {
     @BindView(R.id.tv_error)
     lateinit var tvError: TextView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
+        appComponent().inject(this)
+        log("MainActivity onCreate")
 
-        setupUsersList()
+
+        setupFilmsList()
         setupSwipeToRefresh()
 
     }
 
 
-    private fun setupUsersList() {
+    private fun setupFilmsList() {
         val adapter = FilmsListAdapter()
         val tryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -75,17 +82,21 @@ class MainActivity : AppCompatActivity() {
         (filmRecycler.itemAnimator as? DefaultItemAnimator)?.supportsChangeAnimations = false //todo
 
         //todo view?
-        loadStateHolder = DefaultLoadStateAdapter.ViewHolder(view_network_state_item, swipeLayout, tryAgainAction)
 
-        observeUsers(adapter)
+//        val netStateItem: View =
+//            LayoutInflater.from(filmRecycler.context).inflate(R.layout.network_state_item, filmRecycler, false)
+//        loadStateHolder = DefaultLoadStateAdapter.ViewHolder(netStateItem, swipeLayout, tryAgainAction)
+
+        observeFilms(adapter)
         observeLoadState(adapter)
 
         handleScrollingToTopWhenSearching(adapter)
         handleListVisibility(adapter)
+        log("MainActivity : SetupFilmList")
     }
 
 
-    private fun observeUsers(adapter: FilmsListAdapter) {
+    private fun observeFilms(adapter: FilmsListAdapter) {
         lifecycleScope.launch {
             viewModel.filmFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
