@@ -13,7 +13,6 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
-import ru.testwork.appcinemalist.log
 
 class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmHolder>(FilmsDiffUtilCallback()) {
 
@@ -22,7 +21,7 @@ class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmH
         @BindView(R.id.tv_title)
         lateinit var title: TextView
 
-        @BindView(R.id.tv_title2)
+        @BindView(R.id.tv_description)
         lateinit var title2: TextView
 
         @BindView(R.id.iv_image_film)

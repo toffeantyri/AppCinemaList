@@ -5,6 +5,8 @@
 
 
     <string name="retry">Повторить</string>
+    <string name="item_titile_t1">Название:</string>
+    <string name="item_title_t2">Описание:</string>
 
 
 </resources>

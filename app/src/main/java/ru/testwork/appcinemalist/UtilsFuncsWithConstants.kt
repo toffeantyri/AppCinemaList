@@ -16,7 +16,7 @@ fun log(message: String) {
 fun List<Result>.toListFilmModelItem(): List<FilmModelItem> {
     val arrayList = arrayListOf<FilmModelItem>()
     this.asSequence().forEach {
-        arrayList.add(FilmModelItem(it.headline, it.display_title, it.multimedia.src ))
+        arrayList.add(FilmModelItem(it.display_title, it.summary_short, it.multimedia.src ))
     }
     return arrayList
 }
