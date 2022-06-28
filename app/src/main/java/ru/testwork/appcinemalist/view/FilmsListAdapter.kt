@@ -13,6 +13,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
+import ru.testwork.appcinemalist.log
 
 class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmHolder>(FilmsDiffUtilCallback()) {
 
@@ -34,6 +35,7 @@ class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmH
         fun bind(filmByPos: FilmModelItem) {
             title.text = filmByPos.title
             title2.text = filmByPos.title2
+            log("adapter : ${filmByPos.imageLink}")
             loadFilmPhotoByUrl(image, filmByPos.imageLink)
         }
 
