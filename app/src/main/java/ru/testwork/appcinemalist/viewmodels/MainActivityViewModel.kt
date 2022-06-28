@@ -7,6 +7,8 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cancellable
+import kotlinx.coroutines.flow.retry
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
 import ru.testwork.appcinemalist.log
@@ -35,11 +37,10 @@ class MainActivityViewModel constructor(private val repository: FilmListReposito
         // cacheIn кешируем если подписка будет происходить несколько раз
     }
 
-
-    fun refresh() {
-        //todo ??? refresh
+    fun refresh(){
         _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
     }
+
 
 
 }

@@ -35,7 +35,7 @@ import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
-    lateinit var loadStateHolder : DefaultLoadStateAdapter.ViewHolder
+    lateinit var loadStateHolder: DefaultLoadStateAdapter.ViewHolder
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainLayout: ConstraintLayout
 
     @BindView(R.id.loadStateView)
-    lateinit var loadStateView : View
+    lateinit var loadStateView: View
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
 
 
         setupFilmsList()
-        setupSwipeToRefresh()
         log("MainActivity onCreate")
     }
 
@@ -83,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             tryAgainAction
         )
 
+        setOnSwipeActionAndListener(adapter)
         observeFilms(adapter)
         observeLoadState(adapter)
         handleScrollingToTopWhenSearching(adapter)
@@ -94,9 +94,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeFilms(adapter: FilmsListAdapter) {
         lifecycleScope.launch {
             viewModel.filmFlow.collectLatest { pagingData ->
-
                 log("mainActivity : collectLatest $pagingData")
-
                 adapter.submitData(pagingData)
             }
         }
@@ -117,8 +115,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun handleScrollingToTopWhenSearching(adapter: FilmsListAdapter) = lifecycleScope.launch {
-        // list should be scrolled to the 1st item (index = 0) if data has been reloaded:
-        // (prev state = Loading, current state = NotLoading)
         getRefreshLoadStateFlow(adapter)
             .simpleScan(count = 2)
             .collectLatest { (previousState, currentState) ->
@@ -126,13 +122,13 @@ class MainActivity : AppCompatActivity() {
                     filmRecycler.scrollToPosition(0)
                 }
             }
+
+
+
+//
     }
 
     private fun handleListVisibility(adapter: FilmsListAdapter) = lifecycleScope.launch {
-        // list should be hidden if an error is displayed OR if items are being loaded after the error:
-        // (current state = Error) OR (prev state = Error)
-        //   OR
-        // (before prev state = Error, prev state = NotLoading, current state = Loading)
         getRefreshLoadStateFlow(adapter)
             .simpleScan(count = 3)
             .collectLatest { (beforePrevious, previous, current) ->
@@ -145,13 +141,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun getRefreshLoadStateFlow(adapter: FilmsListAdapter): Flow<LoadState> {
         return adapter.loadStateFlow.map {
-            it.refresh }
+            it.refresh
+        }
     }
 
-
-    private fun setupSwipeToRefresh() {
+    private fun setOnSwipeActionAndListener(adapter: FilmsListAdapter) {
         swipeLayout.setOnRefreshListener {
-            viewModel.refresh()
+            lifecycleScope.launch {
+                observeFilms(adapter)
+                viewModel.refresh()
+                getRefreshLoadStateFlow(adapter)
+                    .collectLatest { currentState ->
+                        log("currentState swipe : $currentState")
+                        swipeLayout.isRefreshing = currentState is LoadState.Loading
+                    }
+            }
         }
     }
 }
