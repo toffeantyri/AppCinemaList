@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import ru.testwork.appcinemalist.R
+import ru.testwork.appcinemalist.log
 
 
 class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
@@ -43,8 +44,10 @@ class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
         fun bind(loadState: LoadState) {
             retryButton.setOnClickListener { tryAgainAction }
             errorMessage.isVisible = loadState is LoadState.Error
+            errorMessage.text = if(loadState is LoadState.Error) {loadState.error.message} else {""}
             retryButton.isVisible = loadState is LoadState.Error
             if (swipeRefreshLayout != null) {
+                log("swipeRefresh state os : ${loadState::class.simpleName} $loadState")
                 swipeRefreshLayout.isRefreshing = loadState is LoadState.Loading
                 progressBarState.isVisible = false
             } else {

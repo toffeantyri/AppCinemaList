@@ -35,7 +35,6 @@ class FilmsListAdapter : PagingDataAdapter<FilmModelItem, FilmsListAdapter.FilmH
         fun bind(filmByPos: FilmModelItem) {
             title.text = filmByPos.title
             title2.text = filmByPos.title2
-            log("adapter : ${filmByPos.imageLink}")
             loadFilmPhotoByUrl(image, filmByPos.imageLink)
         }
 
