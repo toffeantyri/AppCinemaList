@@ -28,7 +28,7 @@ class FilmListRepository @Inject constructor(private val api: ApiProvider) {
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
                 prefetchDistance = 5,
-                initialLoadSize = PAGE_SIZE*3,
+                initialLoadSize = PAGE_SIZE,
             ),
             pagingSourceFactory = { FilmPagingSource(loader, PAGE_SIZE) }
         ).flow
