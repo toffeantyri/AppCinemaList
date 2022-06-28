@@ -8,6 +8,7 @@
         tools:context=".screens.MainActivity"
         android:padding="5dp"
         android:id="@+id/mainConstarin"
+        android:background="@color/alpha_grey_100"
 >
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +31,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-            <include
+    <include
             android:id="@+id/loadStateView"
             layout="@layout/network_state_item"
             android:layout_width="match_parent"
@@ -38,9 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
