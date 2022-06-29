@@ -17,10 +17,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.appComponent
@@ -56,7 +53,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this@MainActivity)
-        appComponent().inject(this)
+
+        appComponent().injectA(this)
+
+
+
 
         setupFilmsList()
         log("MainActivity onCreate")
@@ -79,9 +80,9 @@ class MainActivity : AppCompatActivity() {
             tryAgainAction
         )
 
-        setOnSwipeActionAndListener(adapter)
         observeFilms(adapter)
         observeLoadState(adapter)
+        setOnSwipeActionAndListener(adapter)
         handleListVisibility(adapter)
 
     }
@@ -89,10 +90,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeFilms(adapter: FilmsListAdapter) {
         lifecycleScope.launch {
-            viewModel.filmFlow.collectLatest { pagingData ->
-                log("mainActivity : collectLatest $pagingData")
-                adapter.submitData(pagingData)
-            }
+                viewModel.filmFlow.collectLatest { pagingData ->
+                    log("mainActivity : collectLatest $pagingData")
+                    adapter.submitData(pagingData)
+                }
         }
     }
 

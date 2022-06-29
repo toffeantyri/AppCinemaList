@@ -17,12 +17,11 @@ import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class MainActivityViewModel constructor(private val repository: FilmListRepository = FilmListRepository(ApiProvider())) :
+class MainActivityViewModel @Inject constructor(private val repository: FilmListRepository) :
     ViewModel() {
 
 
     private var _filmsFlow: Flow<PagingData<FilmModelItem>>
-
 
     val filmFlow: Flow<PagingData<FilmModelItem>>
         get() {
@@ -32,15 +31,15 @@ class MainActivityViewModel constructor(private val repository: FilmListReposito
 
 
     init {
+
         log("${this::class.java.simpleName} init")
         _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
         // cacheIn кешируем если подписка будет происходить несколько раз
     }
 
-    fun refresh(){
+    fun refresh() {
         _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
     }
-
 
 
 }

@@ -11,14 +11,15 @@ import ru.testwork.appcinemalist.screens.MainActivity
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun inject(activity : MainActivity)
+    fun injectA(activity : MainActivity)
 
     val filmListRepo: FilmListRepository
 
+    val apiProvider : ApiProvider
 }
 
 @Module
-object AppModule {
+class AppModule {
 
     @Provides
     fun provideFilmListRepo(api: ApiProvider): FilmListRepository {

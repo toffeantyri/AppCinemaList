@@ -17,7 +17,7 @@ class MyApp : Application() {
         log(this::class.java.simpleName + ": onCreate")
         APP_CONTEXT = this
         super.onCreate()
-        appComponent = DaggerAppComponent.builder().appModule(AppModule).build()
+        appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
     }
 }
 
