@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import ru.testwork.appcinemalist.MAX_PAGE_SIZE
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
 import ru.testwork.appcinemalist.log
@@ -13,7 +14,6 @@ import ru.testwork.appcinemalist.view.FilmPageLoader
 import ru.testwork.appcinemalist.view.FilmPagingSource
 import javax.inject.Inject
 
-const val PAGE_SIZE = 20
 
 class FilmListRepository @Inject constructor(private val api: ApiProvider) {
 
@@ -25,12 +25,12 @@ class FilmListRepository @Inject constructor(private val api: ApiProvider) {
         }
         return Pager(
             config = PagingConfig(
-                pageSize = PAGE_SIZE,
+                pageSize = MAX_PAGE_SIZE,
                 enablePlaceholders = false,
                 prefetchDistance = 5,
-                initialLoadSize = PAGE_SIZE,
+                initialLoadSize = MAX_PAGE_SIZE,
             ),
-            pagingSourceFactory = { FilmPagingSource(loader, PAGE_SIZE) }
+            pagingSourceFactory = { FilmPagingSource(loader, MAX_PAGE_SIZE) }
         ).flow
     }
 
@@ -39,7 +39,7 @@ class FilmListRepository @Inject constructor(private val api: ApiProvider) {
         pageIndex: Int
     ): List<FilmModelItem> = withContext(Dispatchers.IO) {
 
-        val offset = (pageIndex * PAGE_SIZE).toString()
+        val offset = (pageIndex * MAX_PAGE_SIZE).toString()
 
         val response = async {
             api.provideNYTimesApi().getReviewAll(offset = offset)

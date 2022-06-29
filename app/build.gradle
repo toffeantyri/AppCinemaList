@@ -18,11 +18,15 @@ android {
 
     buildTypes {
         debug {
-            // api key release    WLZea1BzGd1A7R9duap3nIJsAfi4JfSo
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        buildTypes.each {
+            it.buildConfigField('String', 'API_KEY', myApiKey)
+        }
+
     }
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
