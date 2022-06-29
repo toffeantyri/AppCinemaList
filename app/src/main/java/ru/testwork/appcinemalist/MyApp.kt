@@ -6,7 +6,6 @@ import ru.testwork.appcinemalist.di.AppComponent
 import ru.testwork.appcinemalist.di.AppModule
 import ru.testwork.appcinemalist.di.DaggerAppComponent
 
-lateinit var APP_CONTEXT: Application
 
 class MyApp : Application() {
 

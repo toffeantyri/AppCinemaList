@@ -1,16 +1,10 @@
 package ru.testwork.appcinemalist.busines.api
 
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class ApiProvider {
 
-    private val nytimesFilms by lazy { initApi() }
+class ApiProvider @Inject constructor(private val nytimesFilms: Retrofit) {
 
-    private fun initApi() = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://api.nytimes.com")
-        .build()
-
-    fun provideNYTimesApi() = nytimesFilms.create(NYTimesApiService::class.java)
+    fun provideNYTimesApi(): NYTimesApiService = nytimesFilms.create(NYTimesApiService::class.java)
 }

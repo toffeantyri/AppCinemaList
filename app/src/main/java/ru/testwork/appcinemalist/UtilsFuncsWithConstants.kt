@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.scan
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
 import ru.testwork.appcinemalist.busines.model.jsonmodels.Result
 
-const val LOG_TAG = "MY_LOG"
 
 fun log(message: String) {
     Log.d(LOG_TAG, message)
