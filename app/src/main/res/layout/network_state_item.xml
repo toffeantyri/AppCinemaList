@@ -11,6 +11,7 @@
         tools:background="@android:color/holo_blue_light">
 
     <TextView
+            tools:text="123"
             android:visibility="gone"
             tools:visibility="visible"
             android:id="@+id/error_msg_item"

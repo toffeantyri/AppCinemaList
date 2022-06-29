@@ -8,13 +8,13 @@
         app:cardCornerRadius="8dp"
         android:layout_marginVertical="5dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="@color/grey_100"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
 
         <LinearLayout
                 android:layout_width="0dp"
@@ -22,66 +22,52 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@+id/iv_image_film" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_image_film"
-        android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp" app:layout_constraintBottom_toBottomOf="@+id/iv_image_film">
 
             <TextView
-
-                    android:textSize="14sp"
-                    android:textStyle="bold|italic"
-                    android:textColor="@color/white"
-                    android:id="@+id/tv_t1"
+                    style="@style/itemHelpTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/iv_image_film"
                     android:text="@string/item_titile_t1"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_image_film"
             />
 
             <TextView
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
+                    style="@style/mainTextStyle"
+                    android:textSize="20sp"
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_t1"
                     tools:text="Название и оно самое"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_image_film"
             />
 
         </LinearLayout>
 
 
-
-
-        <TextView
-                android:textSize="14sp"
-                android:textStyle="bold|italic"
-                android:textColor="@color/white"
-                android:id="@+id/tv_t2"
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                android:text="@string/item_title_t2"
-                app:layout_constraintEnd_toStartOf="@+id/iv_image_film"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_image_film"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_image_film">
 
-        <TextView
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                tools:text="Описание"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_image_film"
-                app:layout_constraintTop_toBottomOf="@+id/tv_t2"/>
+
+            <TextView
+                    style="@style/itemHelpTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_title_t2"
+            />
+
+            <TextView
+                    style="@style/mainTextStyle"
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Описание"
+            />
+
+
+        </LinearLayout>
 
 
         <ImageView
