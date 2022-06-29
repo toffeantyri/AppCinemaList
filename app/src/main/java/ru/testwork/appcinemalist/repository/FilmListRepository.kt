@@ -5,12 +5,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
 import ru.testwork.appcinemalist.log
 import ru.testwork.appcinemalist.toListFilmModelItem
-import java.lang.IllegalStateException
+import ru.testwork.appcinemalist.view.FilmPageLoader
+import ru.testwork.appcinemalist.view.FilmPagingSource
 import javax.inject.Inject
 
 const val PAGE_SIZE = 20

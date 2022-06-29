@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist.repository
+package ru.testwork.appcinemalist.view
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

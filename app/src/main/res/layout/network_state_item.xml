@@ -11,7 +11,7 @@
         tools:background="@android:color/holo_blue_light">
 
     <TextView
-            tools:text="123"
+            tools:text="12345 awer wdfa wef wef wef"
             android:visibility="gone"
             tools:visibility="visible"
             android:id="@+id/error_msg_item"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

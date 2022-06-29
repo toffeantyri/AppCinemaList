@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this@MainActivity)
 
         appComponent().injectA(this)
+        appComponent().injectV(viewModel)
 
 
 
@@ -68,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = FilmsListAdapter()
         val tryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
-
         val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
 
         filmRecycler.layoutManager = LinearLayoutManager(this)
