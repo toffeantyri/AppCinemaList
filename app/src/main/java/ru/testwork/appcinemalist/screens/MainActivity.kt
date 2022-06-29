@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this@MainActivity)
 
         appComponent().injectA(this)
+        appComponent().injectV(viewModel)
 
 
 

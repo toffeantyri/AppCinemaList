@@ -17,29 +17,27 @@ import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class MainActivityViewModel @Inject constructor(private val repository: FilmListRepository) :
+class MainActivityViewModel @Inject constructor() :
     ViewModel() {
 
+    @Inject
+    lateinit var repository: FilmListRepository
 
-    private var _filmsFlow: Flow<PagingData<FilmModelItem>>
+    private lateinit var _filmsFlow: Flow<PagingData<FilmModelItem>>
+
+    private var firstInitViewModel: Boolean = true
 
     val filmFlow: Flow<PagingData<FilmModelItem>>
         get() {
+            if (firstInitViewModel) {
+                _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
+                firstInitViewModel = false
+            }
             log("VM : FilmFlow anybody get  $_filmsFlow")
             return _filmsFlow
         }
 
-
-    init {
-
-        log("${this::class.java.simpleName} init")
-        _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
-        // cacheIn кешируем если подписка будет происходить несколько раз
-    }
-
     fun refresh() {
         _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
     }
-
-
 }
