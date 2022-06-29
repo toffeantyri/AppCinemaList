@@ -56,10 +56,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this@MainActivity)
-
         appComponent().inject(this)
-
-
 
         setupFilmsList()
         log("MainActivity onCreate")
@@ -85,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         setOnSwipeActionAndListener(adapter)
         observeFilms(adapter)
         observeLoadState(adapter)
-        handleScrollingToTopWhenSearching(adapter)
         handleListVisibility(adapter)
 
     }
@@ -102,31 +98,14 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun observeLoadState(adapter: FilmsListAdapter) {
-        // you can also use adapter.addLoadStateListener
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(500).collectLatest { state ->
-                // main indicator in the center of the screen
                 log("mainActivity : new loadState : $state")
                 loadStateHolder.bind(state.refresh)
-
             }
         }
     }
 
-
-    private fun handleScrollingToTopWhenSearching(adapter: FilmsListAdapter) = lifecycleScope.launch {
-        getRefreshLoadStateFlow(adapter)
-            .simpleScan(count = 2)
-            .collectLatest { (previousState, currentState) ->
-                if (previousState is LoadState.Loading && currentState is LoadState.NotLoading) {
-                    filmRecycler.scrollToPosition(0)
-                }
-            }
-
-
-
-//
-    }
 
     private fun handleListVisibility(adapter: FilmsListAdapter) = lifecycleScope.launch {
         getRefreshLoadStateFlow(adapter)

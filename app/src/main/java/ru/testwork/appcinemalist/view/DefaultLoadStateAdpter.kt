@@ -42,7 +42,7 @@ class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :
 
 
         fun bind(loadState: LoadState) {
-            retryButton.setOnClickListener { tryAgainAction }
+            retryButton.setOnClickListener { tryAgainAction() }
             errorMessage.isVisible = loadState is LoadState.Error
             errorMessage.text = if(loadState is LoadState.Error) {loadState.error.message} else {""}
             retryButton.isVisible = loadState is LoadState.Error
