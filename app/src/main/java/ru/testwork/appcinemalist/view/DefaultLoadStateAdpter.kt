@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import ru.testwork.appcinemalist.R
-import ru.testwork.appcinemalist.log
+import ru.testwork.appcinemalist.util.log
 
 
 class DefaultLoadStateAdapter(private val tryAgainAction: () -> Unit) :

@@ -17,7 +17,7 @@ interface NYTimesApiService {
     @GET("/svc/movies/v2/reviews/all.json?")
     suspend fun getReviewAll(
         @Query("offset") offset: String = "0",
-        @Query("api-key") key: String = BuildConfig.API_KEY
+        @Query("api-key") key: String = BuildConfig.API_KEY_DEBUG
     ): Response<NYTimesReviewModel>
 
 

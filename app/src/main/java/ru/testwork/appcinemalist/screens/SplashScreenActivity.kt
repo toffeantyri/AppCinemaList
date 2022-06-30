@@ -9,7 +9,7 @@ import butterknife.ButterKnife
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import ru.testwork.appcinemalist.R
-import ru.testwork.appcinemalist.log
+import ru.testwork.appcinemalist.util.log
 
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -34,7 +34,6 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
-
         }
     }
 }

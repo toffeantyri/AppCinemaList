@@ -5,11 +5,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import ru.testwork.appcinemalist.MAX_PAGE_SIZE
+import ru.testwork.appcinemalist.util.MAX_PAGE_SIZE
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
-import ru.testwork.appcinemalist.log
-import ru.testwork.appcinemalist.toListFilmModelItem
+import ru.testwork.appcinemalist.util.log
+import ru.testwork.appcinemalist.util.toListFilmModelItem
 import ru.testwork.appcinemalist.view.FilmPageLoader
 import ru.testwork.appcinemalist.view.FilmPagingSource
 import javax.inject.Inject

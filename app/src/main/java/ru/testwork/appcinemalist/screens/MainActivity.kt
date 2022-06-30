@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.testwork.appcinemalist.R
 import ru.testwork.appcinemalist.appComponent
-import ru.testwork.appcinemalist.log
-import ru.testwork.appcinemalist.simpleScan
+import ru.testwork.appcinemalist.util.log
+import ru.testwork.appcinemalist.util.simpleScan
 import ru.testwork.appcinemalist.view.DefaultLoadStateAdapter
 import ru.testwork.appcinemalist.view.FilmsListAdapter
 import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
@@ -32,7 +32,7 @@ import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
-    lateinit var loadStateHolder: DefaultLoadStateAdapter.ViewHolder
+    private lateinit var loadStateHolder: DefaultLoadStateAdapter.ViewHolder
 
     private val viewModel: MainActivityViewModel by viewModels()
 

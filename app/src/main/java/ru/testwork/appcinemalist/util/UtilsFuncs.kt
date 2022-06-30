@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist
+package ru.testwork.appcinemalist.util
 
 import android.util.Log
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,6 +20,7 @@ fun List<Result>.toListFilmModelItem(): List<FilmModelItem> {
     return arrayList
 }
 
+//get last items by count
 @ExperimentalCoroutinesApi
 fun <T> Flow<T>.simpleScan(count: Int): Flow<List<T?>> {
     val items = List<T?>(count) { null }

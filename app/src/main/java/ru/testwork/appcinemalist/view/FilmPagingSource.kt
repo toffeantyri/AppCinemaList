@@ -29,10 +29,7 @@ class FilmPagingSource(
             return LoadResult.Page(
                 data = films,
                 prevKey = if (pageIndex == 0) null else pageIndex - 1,
-                //by default pageSize x3 loading поэтому ниже
-                // pageIndex будет pageIndex + 1(если одна страница загрузилась)
-                // и + 3 если дефолтная загрузка загрузила  3 страницы
-                nextKey = if (films.size == params.loadSize) pageIndex + (params.loadSize / pageSize) else null //todo ? расчёт ключа проверить
+                nextKey = if (films.size == params.loadSize) pageIndex + (params.loadSize / pageSize) else null
             )
         } catch (e: Exception) {
             LoadResult.Error(

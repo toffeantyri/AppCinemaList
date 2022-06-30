@@ -5,12 +5,11 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.testwork.appcinemalist.BASE_URL_NYT
+import ru.testwork.appcinemalist.util.BASE_URL_NYT
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.repository.FilmListRepository
 import ru.testwork.appcinemalist.screens.MainActivity
 import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
-import javax.inject.Singleton
 
 @Component(modules = [AppModule::class])
 interface AppComponent {

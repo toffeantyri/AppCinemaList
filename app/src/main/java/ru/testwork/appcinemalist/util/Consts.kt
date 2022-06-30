@@ -1,4 +1,4 @@
-package ru.testwork.appcinemalist
+package ru.testwork.appcinemalist.util
 
 import android.app.Application
 

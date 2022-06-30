@@ -7,11 +7,8 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.cancellable
-import kotlinx.coroutines.flow.retry
-import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
-import ru.testwork.appcinemalist.log
+import ru.testwork.appcinemalist.util.log
 import ru.testwork.appcinemalist.repository.FilmListRepository
 import javax.inject.Inject
 
