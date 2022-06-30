@@ -25,7 +25,7 @@ interface AppComponent {
     val retrofit: Retrofit
 }
 
-@Module
+@Module(includes = [NetModule::class])
 class AppModule {
 
     @Provides
@@ -37,6 +37,12 @@ class AppModule {
     fun provideApiProvider(retrofit: Retrofit): ApiProvider = ApiProvider(retrofit)
 
 
+
+}
+
+@Module
+object NetModule {
+
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -44,4 +50,5 @@ class AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
 }

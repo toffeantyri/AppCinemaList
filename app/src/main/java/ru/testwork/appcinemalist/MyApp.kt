@@ -5,6 +5,7 @@ import android.content.Context
 import ru.testwork.appcinemalist.di.AppComponent
 import ru.testwork.appcinemalist.di.AppModule
 import ru.testwork.appcinemalist.di.DaggerAppComponent
+import ru.testwork.appcinemalist.di.NetModule
 import ru.testwork.appcinemalist.util.APP_CONTEXT
 import ru.testwork.appcinemalist.util.log
 
@@ -18,7 +19,10 @@ class MyApp : Application() {
         log(this::class.java.simpleName + ": onCreate")
         APP_CONTEXT = this
         super.onCreate()
-        appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule())
+            .netModule(NetModule)
+            .build()
     }
 }
 
