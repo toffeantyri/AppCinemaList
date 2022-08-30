@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        viewModel.getSimilarProducts()
 
         setupFilmsList()
         log("MainActivity onCreate")
@@ -128,6 +129,8 @@ class MainActivity : AppCompatActivity() {
     private fun setOnSwipeActionAndListener(adapter: FilmsListAdapter) {
         swipeLayout.setOnRefreshListener {
             lifecycleScope.launch {
+                viewModel.getSimilarProducts()
+
                 observeFilms(adapter)
                 viewModel.refresh()
                 getRefreshLoadStateFlow(adapter)

@@ -1,5 +1,6 @@
 package ru.testwork.appcinemalist.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -7,6 +8,7 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
 import ru.testwork.appcinemalist.util.log
 import ru.testwork.appcinemalist.repository.FilmListRepository
@@ -36,5 +38,16 @@ class MainActivityViewModel @Inject constructor() :
 
     fun refresh() {
         _filmsFlow = repository.getPagedFilms().cachedIn(viewModelScope)
+    }
+
+    fun getSimilarProducts() {
+        viewModelScope.launch {
+            val result = repository.getSimilarProducts()
+            result.results.forEachIndexed { index, product ->
+                Log.d("MyLog", "RESULT Vm $index :  $product")
+            }
+
+        }
+
     }
 }

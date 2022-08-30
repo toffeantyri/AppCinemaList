@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.testwork.appcinemalist.util.MAX_PAGE_SIZE
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.busines.model.FilmModelItem
+import ru.testwork.appcinemalist.busines.model.FilterProduct
 import ru.testwork.appcinemalist.util.log
 import ru.testwork.appcinemalist.util.toListFilmModelItem
 import ru.testwork.appcinemalist.view.FilmPageLoader
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class FilmListRepository @Inject constructor(private val api: ApiProvider) {
 
 
-   fun getPagedFilms(
+    fun getPagedFilms(
     ): Flow<PagingData<FilmModelItem>> {
         val loader: FilmPageLoader = { pageIndex: Int, pageSize: Int ->
             getData(pageIndex)
@@ -53,6 +54,19 @@ class FilmListRepository @Inject constructor(private val api: ApiProvider) {
         } else {
             return@withContext emptyList()
         }
+    }
+
+    private var page = 1
+    suspend fun getSimilarProducts(): ProductResult {
+        val request = withContext(Dispatchers.IO) {
+            val filter = FilterProduct(
+                page = page,
+                similarProducts = 66967
+            )
+            api.provideNYTimesApi().getProducts("https://dev.sarawan.ru/api/products/", filter.toMap())
+        }
+        page++
+        return request
     }
 }
 

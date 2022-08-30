@@ -5,11 +5,15 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.testwork.appcinemalist.util.BASE_URL_NYT
 import ru.testwork.appcinemalist.busines.api.ApiProvider
 import ru.testwork.appcinemalist.repository.FilmListRepository
 import ru.testwork.appcinemalist.screens.MainActivity
+import ru.testwork.appcinemalist.util.BASE_URL_SARAWAN
 import ru.testwork.appcinemalist.viewmodels.MainActivityViewModel
+import javax.inject.Inject
+import javax.inject.Named
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
@@ -23,6 +27,8 @@ interface AppComponent {
     val apiProvider: ApiProvider
 
     val retrofit: Retrofit
+
+    val sarawanRetrofit : Retrofit
 }
 
 @Module(includes = [NetModule::class])
@@ -34,8 +40,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideApiProvider(retrofit: Retrofit): ApiProvider = ApiProvider(retrofit)
-
+    fun provideApiProvider(retrofit: Retrofit): ApiProvider =
+        ApiProvider(retrofit)
 
 
 }
@@ -47,6 +53,7 @@ object NetModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_NYT)
+            .addConverterFactory(MoshiConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
